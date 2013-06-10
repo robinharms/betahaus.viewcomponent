@@ -90,7 +90,7 @@ class ViewGroupTests(TestCase):
         try:
             obj(None, None)
         except Exception, exc:
-            self.failUnless('this_view_group' in exc.message)
+            self.failUnless('this_view_group' in exc.args[0])
 
     def test_default_order(self):
         obj = self._cut()
@@ -272,7 +272,8 @@ class RenderViewGroupTests(TestCase):
         context = testing.DummyResource()
         self.config.include("betahaus.viewcomponent.fixtures.dummy")
         res = self._fut(context, request, 'html')
-        expected = "pyramid.testing.DummyResource, <class 'pyramid.testing.DummyRequest'>, <betahaus.viewcomponent.models.ViewAction 'stuff'>"
+        expected = "{}, {}, <betahaus.viewcomponent.models.ViewAction 'stuff'>".format(
+            testing.DummyResource, testing.DummyRequest)
         self.assertEqual(res, expected)
 
 

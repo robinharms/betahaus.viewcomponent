@@ -1,7 +1,7 @@
 from pyramid.testing import DummyResource
 
 from zope.interface import Interface
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class IRoot(Interface):
@@ -11,8 +11,10 @@ class IOrganisation(Interface):
     pass
 
 
+@implementer(IRoot)
 class Root(DummyResource):
-    implements(IRoot)
+    pass
 
+@implementer(IOrganisation)
 class Organisation(DummyResource):
-    implements(IOrganisation)
+    pass

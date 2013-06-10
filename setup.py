@@ -33,6 +33,7 @@ setup(name='betahaus.viewcomponent',
       install_requires=requires,
       tests_require=requires,
       test_suite="betahaus.viewcomponent",
+      use_2to3=True,
       entry_points = """\
       """,
       paster_plugins=['pyramid'],
