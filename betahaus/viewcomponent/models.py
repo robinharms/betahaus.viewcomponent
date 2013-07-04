@@ -27,7 +27,14 @@ class ViewGroup(object):
                 results.append(va(context, request, **kw))
             except Exception as exc:
                 eargs = list(exc.args)
-                eargs[0] = "ViewAction '%s' of ViewGroup '%s' raised an exception: %s" % (va.name, self.name, exc.args[0])
+                msg = "ViewAction '%s' of ViewGroup '%s' raised an exception: %s"
+                
+                # We do this because not all libraries provide their
+                # error messages through the args!
+                if eargs:
+                    eargs[0] = msg % (va.name, self.name, exc.args[0])
+                else:
+                    eargs.append(msg % (va.name, self.name, exc.__class__))
                 exc.args = eargs
                 raise exc
         try:
